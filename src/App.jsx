@@ -1,33 +1,19 @@
-import { useEffect, useState } from 'react'
-import { getAreaData } from './api'
+
+import { PostCodeSearch } from './Components/PostCodeSearch';
+import {QueryClient, QueryClientProvider} from 'react-query'
 
 import './App.css'
 
 function App() {
-
-  const [areas, setAreas] = useState([]);
-
-  const load = async () => {
-    try {
-      const areaData = await getAreaData()
-
-      areas.concat(areaData);
-  
-      setAreas(areas);
-    } catch (error) {
-      window.alert("todo: fix app")
-    }
-  }
-
-  useEffect(() => {
-    load();
-  }, []);
-
+let queryclient = new QueryClient()
   return (
+    <QueryClientProvider client={queryclient}>
+
     <div className="App">
       <h1>Postcoders</h1>
-      <h2>{`Areas for BB10: ${areas.length}`}</h2>
+      <PostCodeSearch/>
     </div>
+    </QueryClientProvider>
   )
 }
 
